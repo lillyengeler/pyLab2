@@ -7,37 +7,37 @@ import sys
 def webServer(port=13331):
     serverSocket = socket(AF_INET, SOCK_STREAM)
     # Prepare a server socket
-    serverSocket.bind(("", port))
+    serverSocket.bind(("localhost", port))
     # Fill in start
     serverSocket.listen(1)  # server listens for incoming TCP requests
-    print("created server socket")
+    #print("created server socket")
     # Fill in end
 
     while True:
         # Establish the connection
         # print('Ready to serve...')
-        print("Ready to serve...")
+        #print("Ready to serve...")
         # returns the client socket and address
         connectionSocket, addr = serverSocket.accept() # Fill in start     #Fill in end
-        print("accepted incoming connection")
+        #print("accepted incoming connection")
 
         try:
 
             try:
                 message = connectionSocket.recv(1024).decode() # Fill in start    #Fill in end
-                print("received connection")
+                #print("received connection")
                 filename = message.split()[1]
                 f = open(filename[1:])
-                print("opened file")
+                #print("opened file")
                 outputdata = f.read()  # Fill in start     #Fill in end
-                print("read data from client")
+                #print("read data from client")
 
                 # Send one HTTP header line into socket.
                 # Fill in start
                 headerLine = "\n HTTP/1.1 200 ok \n\n"
                 headerInBytes = str.encode(headerLine)
                 connectionSocket.send(headerInBytes)
-                print("sent HTTP 200 ok message")
+                #print("sent HTTP 200 ok message")
                 # Fill in end
 
                 # Send the content of the requested file to the client
@@ -49,7 +49,7 @@ def webServer(port=13331):
             except IOError:
                 # Send response message for file not found (404)
                 # Fill in start
-                print("except IOError")
+                #print("except IOError")
                 response = "\n HTTP/1.1 404 Not Found \n\n"
                 responseInBytes = str.encode(response)
                 connectionSocket.send(responseInBytes)
@@ -61,7 +61,7 @@ def webServer(port=13331):
                 # Fill in end
 
         except (ConnectionResetError, BrokenPipeError):
-            print("except error 2")
+            #print("except error 2")
             pass
 
     serverSocket.close()
