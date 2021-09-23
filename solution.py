@@ -34,7 +34,7 @@ def webServer(port=13331):
 
                 # Send one HTTP header line into socket.
                 # Fill in start
-                headerLine = "\n HTTP/1.1 200 ok \n\n"
+                headerLine = "\n HTTP/1.1 200 OK \n\n"
                 headerInBytes = str.encode(headerLine)
                 connectionSocket.send(headerInBytes)
                 #print("sent HTTP 200 ok message")
